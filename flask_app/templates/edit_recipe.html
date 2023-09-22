@@ -1,0 +1,65 @@
+{%extends 'base.html'%} 
+  {%block content%}
+        <div class="header-right d-flex">
+            <h2 class="m-0">Edit Recipe !</h2>
+          </div>
+        <div class="header-botm d-flex f-lucita jce">
+            <div class="header-right-links d-flex">
+                <a href="/dashboard">Dashboard</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for elt in messages %}
+        <div class="red">{{elt}}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <form class="d-flex form-create" action="/recipe/edit/{{specific_recipe.id}}/process" method="POST">
+            <div class="content-left flex-1">
+                <div class="form-row my-4">
+                    <div class="form-group col-md-12 d-flex gap-4">
+                      <label for="name">Name</label>
+                      <input type="text" class="form-control" name="name" value="{{ specific_recipe.name }}" id="name">
+                    </div>
+                </div>
+                <div class="form-row my-4">
+                    <div class="form-group col-md-12 d-flex gap-4">
+                      <label for="description">Description</label>
+                      <input type="text" class="form-control h-90" name="description" value="{{ specific_recipe.description }}" id="description">
+                    </div>
+                </div>
+                <div class="form-row my-4">
+                    <div class="form-group col-md-12 d-flex gap-4">
+                      <label for="instructions">Instructions</label>
+                      <textarea class="h-190" id="instructions" name="instructions" rows="4" cols="50">{{ specific_recipe.instructions }}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="content-right flex-05">
+                <div class="form-row my-4">
+                    <div class="form-group col-md-12 gap-5">
+                      <label for="date">Date Cooked/Made</label>
+                      <input type="date" class="form-control" name="date" value="{{ specific_recipe.date }}"  id="date">
+                    </div>
+                </div>
+                <div class="form-row my-4">
+                    <p>Under 30 minutes?</p>
+                    <div class="radio-input d-flex">
+                        <div class="form-group col-md-12">
+                            <input type="radio" class="form-control" name="under_30" value="yes"  id="yes">
+                            <label  for="yes">Yes</label>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <input type="radio" class="form-control" name="under_30" value="no" id="no">
+                            <label  for="no">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </div>
+        </form>
+   {%endblock%}

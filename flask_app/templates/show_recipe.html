@@ -1,0 +1,36 @@
+{%extends 'base.html'%} 
+  {%block content%}
+         <div class="header-top d-flex jcs">
+            <h3>Welcome , {{ session["firstname"]}} </h3>
+             <div class="links-top d-flex gap-10">
+                <a href="/dashboard">Dashboard</a>
+                <a href="/logout">Logout</a>
+             </div>
+         </div>
+         <div class="header-infos d-flex jcs px-2 h5 f-lucita">
+            <div class="recipe-title">
+                <h5>{{specific_recipe.name}}</h5>
+            </div>
+            <div class="posted-by">
+               Posted by : {{ specific_recipe.user.first_name }}
+            </div>
+         </div>
+        <div class="content-infos border p-3">
+            <div class="descript d-flex">
+                <h6>Description:</h6>
+                <p>{{specific_recipe.description}}</p>
+            </div>
+            <div class="under-30 d-flex">
+                <h6>Under 30 minutes?</h6>
+                <p>{{specific_recipe.under_30}}</p>
+            </div>
+            <div class="instruct d-flex">
+                <h6>Instructions:</h6>
+                <p>{{specific_recipe.instructions}}</p>
+            </div>
+            <div class="date d-flex">
+                <h6>Date Made:</h6>
+                <p>{{date_formatting}}</p>
+            </div>
+        </div>
+{%endblock%}

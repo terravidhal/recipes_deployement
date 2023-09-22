@@ -1,0 +1,56 @@
+{%extends 'base.html'%} 
+  {%block content%}
+    {% with messages = get_flashed_messages(category_filter=['dashboard']) %}
+          {% if messages %}
+              {% for elt in messages %}
+              <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+                <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+                  <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                </symbol>
+              </svg>
+              <div class=" infos alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                <div>
+                  {{elt}}
+                </div>
+              </div>
+              {% endfor %}
+          {% endif %}
+      {% endwith %}
+  <div class="header-right d-flex">
+      <h2 class="m-0"> Welcome, {{ session["firstname"] }}</h2>
+    </div>
+  <div class="header-bottom d-flex f-lucita">
+      <h5>ALL Posted Recipes :</h5>
+      <div class="header-right-links d-flex">
+          <a href="/new_recipe">+Add a new Recipe</a>
+          <a href="/logout">Logout</a>
+      </div>
+  </div>
+  <div class="contain f-lucita">
+    <table class="table table-striped  table-hover border text-center">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Under</th>
+          <th scope="col">Posted By</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for elt in all_recipes %}
+          <tr>
+            <td>{{ elt.name}}</td>
+            <td>{{ elt.under_30 }}</td>
+            <td>{{ elt.user.first_name }}</td>
+            <td><a href="/recipe/{{elt.id}}">View recipe</a>  
+            {% if session['user_id'] == elt.user_id %}
+             | <a href="/recipe/edit/{{elt.id}}">Edit</a> | 
+             <a href="/recipe/delete/{{elt.id}}">Delete</a></td>
+            {%endif%}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+ {%endblock%}
