@@ -7,7 +7,7 @@ import re
 
 
 class User:
-    DB = 'recipes_db-new'
+    DB = 'recipes_db_flask'
     def __init__(self, data):
         self.id = data["id"]
         self.first_name = data["first_name"]

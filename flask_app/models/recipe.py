@@ -4,7 +4,7 @@ from flask import flash
 from flask_app.models import user
 
 class Recipe:
-    DB = 'recipes_db-new'
+    DB = 'recipes_db_flask'
     def __init__(self, data):
         self.id = data["id"]
         self.name = data["name"]
