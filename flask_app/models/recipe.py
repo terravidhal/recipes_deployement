@@ -4,7 +4,7 @@ from flask import flash
 from flask_app.models import user
 
 class Recipe:
-    DB = 'recipes_db'
+    DB = 'recipes_db-new'
     def __init__(self, data):
         self.id = data["id"]
         self.name = data["name"]
@@ -61,6 +61,38 @@ class Recipe:
         return recipe_id_created # Create returns the ID of the new recipe
     
     
+
+    # # READ
+    # # ONE elt
+    @classmethod
+    def get_recipe_with_user(cls, data):
+
+        query = """SELECT * FROM recipes 
+                   LEFT JOIN users ON recipes.user_id = users.id 
+                   WHERE recipes.id = %(recipe_id)s;"""
+
+        results = connectToMySQL(cls.DB).query_db(query, data)
+
+        recipe_instance = Recipe(results[0])
+
+        for obj in results:
+
+           # recipe_instance = Recipe(obj)
+            user_data = {
+                "id" : obj["users.id"],
+                "first_name" : obj["first_name"],
+                "last_name" : obj["last_name"],
+                "email" : obj["email"],
+                "password" : obj["password"],
+                "created_at" : obj["users.created_at"],
+                "updated_at" : obj["users.updated_at"],
+            }
+            user_instance = user.User(user_data)
+            recipe_instance.user = user_instance
+
+        return recipe_instance
+
+
 
     # # READ
     # # ONE elt

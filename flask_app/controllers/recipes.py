@@ -122,7 +122,7 @@ def show_recipe(recipe_id):
     }
 
     
-    recipe = Recipe.get_one(data)
+    recipe = Recipe.get_recipe_with_user(data)
 
     # date formatting
     date = datetime.strptime(recipe.date, "%Y-%m-%d").strftime("%B %dth %Y")
