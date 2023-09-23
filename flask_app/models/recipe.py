@@ -77,7 +77,6 @@ class Recipe:
 
         for obj in results:
 
-           # recipe_instance = Recipe(obj)
             user_data = {
                 "id" : obj["users.id"],
                 "first_name" : obj["first_name"],
