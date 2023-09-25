@@ -40,7 +40,7 @@ class User:
             is_valid = False
             flash("Last Name must be at least 2 characters", "register")
         if not EMAIL_REGEX.match(data['eml']):
-            flash("Invalid email address")
+            flash("Invalid email address", "register")
             is_valid = False
         if not PASSWORD_REGEX.match(data['psswrd']):
             flash("requires 8 chars, 1 upper or lower, 1 number", "register")
